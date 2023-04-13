@@ -2,6 +2,8 @@
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 $(function () {
+var savebtns= $(".saveBtn") 
+
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
@@ -20,17 +22,38 @@ $(function () {
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
-});
 
-var today= dayjs();
-$('#1a').text(today.format('MMM D,YYYY'));
 
-var reformateDate= dayjs( '2023-04-09 15:25:50').format('dddd,MMMM D YYYY, h:mm:ss a');
+  var today = dayjs().format('MMM D, YYYY, h:mm:ss a');
+  $('#currentDay').text(today)
 
-btnShow.addEventListener( 'click', ()=> {
-    let today =newDate ();
 
-    let month = today.getmonth();
+  savebtns.on('click', () => {
+
+    console.log ("hi") 
+
+  });
+
+  function verifyTime() {
+    var hour=dayjs().format("H")
+    console.log (hour)
+    $(".time-block").each (function(){
+      var blockHour=$(this).attr("id").split("-")[1]
+            console.log (blockHour)
+      if(blockHour < hour) {
+        $(this).addClass ("past")
+      }
+      if(blockHour === hour) {
+        $(this).addClass ("present")
+      }
+      if(blockHour > hour) {
+        $(this).addClass ("future")
+      }
+
     
+    })
 
-}); 
+  }
+  verifyTime()
+
+});
